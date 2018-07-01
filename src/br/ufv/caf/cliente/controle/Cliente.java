@@ -9,47 +9,39 @@ import java.util.Scanner;
 
 public class Cliente {
 
-    public static void main(String[] args)
-            throws UnknownHostException, IOException {
-        // dispara cliente
-        new Cliente("127.0.0.1", 12345).executa();
-    }
+    boolean habilitado = false;
+    PrintStream output;
+    Socket cliente;
+    Servidor servidor;
+    Thread threadServidor;
 
-    private String host;
-    private int porta;
-
-    public Cliente(String host, int porta) {
-        this.host = host;
-        this.porta = porta;
+    public Cliente(Socket cliente) throws IOException {
+        this.cliente = cliente;
+        this.servidor = new Servidor(cliente.getInputStream());
+        this.threadServidor = new Thread(this.servidor);
+        output = new PrintStream(this.cliente.getOutputStream());
     }
 
     public void executa() throws UnknownHostException, IOException {
-        try (Socket cliente = new Socket(this.host, this.porta)) {
-            System.out.println("O cliente se conectou ao servidor!");
-            
-            // thread para receber mensagens do servidor
-            Servidor server = new Servidor(cliente.getInputStream());
-            new Thread(server).start();
-            
-            // lê msgs do teclado e manda pro servidor
-            Scanner teclado = new Scanner(System.in);
-            
-            PrintStream saida = new PrintStream(cliente.getOutputStream());
-            while (teclado.hasNextLine() ) {
-                saida.println(teclado.nextLine());
-            }
-            
-            saida.close();
-            teclado.close();
-        }catch(IOException ex){
-            System.out.println("Servidor Cheio");
-        }
+        this.threadServidor.start();
+    }
+
+    public String enviarMensagem(String msg) throws IOException {
+            this.output.println(msg);
+            this.output.flush();
+            return servidor.getMensagemServidor();
+
+    }
+
+    public String receberMensagem() {
+        return servidor.getMensagemServidor();
     }
 }
 
 class Servidor implements Runnable {
 
     private final InputStream servidor;
+    private String msg = "";
 
     public Servidor(InputStream servidor) {
         this.servidor = servidor;
@@ -60,9 +52,16 @@ class Servidor implements Runnable {
         // recebe msgs do servidor e imprime na tela
         Scanner s = new Scanner(this.servidor);
         while (s.hasNextLine()) {
-            System.out.println(s.nextLine());
+            setMsg(s.nextLine());
+            System.out.println(msg);
         }
     }
 
+    public String getMensagemServidor() {
+        return this.msg;
+    }
 
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 }

@@ -8,6 +8,7 @@ import java.net.UnknownHostException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -155,26 +156,12 @@ public class TelaConexao extends javax.swing.JFrame {
         try {
             cliente = new Socket(tfEndConexao.getText(), porta);
         } catch (IOException ex) {
-            Logger.getLogger(TelaConexao.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showConfirmDialog(null, "Erro ao conectar : " + ex);
         }
-            System.out.println("O cliente se conectou ao servidor!");
-
-            Scanner teclado = new Scanner(System.in);
-            PrintStream saida = null;
+        
+        this.setVisible(false);
         try {
-            saida = new PrintStream(cliente.getOutputStream());
-        } catch (IOException ex) {
-            Logger.getLogger(TelaConexao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-            while (teclado.hasNextLine()) {
-                saida.println(teclado.nextLine());
-            }
-
-            saida.close();
-            teclado.close();
-        try {
-            cliente.close();
+            new TelaCliente(cliente).setVisible(true);
         } catch (IOException ex) {
             Logger.getLogger(TelaConexao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -216,10 +203,8 @@ public class TelaConexao extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaConexao().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new TelaConexao().setVisible(true);
         });
     }
 
