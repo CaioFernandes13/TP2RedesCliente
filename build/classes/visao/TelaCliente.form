@@ -145,15 +145,13 @@
                           <Component id="buttonDesistir" min="-2" pref="91" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jLabelImgForca" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel1" min="-2" pref="69" max="-2" attributes="0"/>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="1" min="-2" pref="69" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="labelPontosPlayer2" min="-2" max="-2" attributes="0"/>
                               <Component id="labelPontosPlayer1" min="-2" max="-2" attributes="0"/>
@@ -166,65 +164,73 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="labelPontosPlayer2" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelPontosPlayer1" alignment="1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="52" max="32767" attributes="0"/>
-                  <Component id="labelPalavraOculta" min="-2" pref="103" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jTextField1" min="-2" pref="32" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="buttonA" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonB" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonC" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonD" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonE" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonF" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonG" min="-2" pref="34" max="-2" attributes="0"/>
+                          <Component id="jLabelImgForca" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="labelPontosPlayer2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="buttonH" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonI" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonJ" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonK" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonL" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonM" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonN" min="-2" pref="34" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="labelPontosPlayer1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" max="32767" attributes="0"/>
                           </Group>
+                          <EmptySpace pref="104" max="32767" attributes="0"/>
+                          <Component id="labelPalavraOculta" min="-2" pref="103" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="buttonO" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonQ" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonR" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonU" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonS" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonT" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonP" min="-2" pref="34" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="buttonV" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonX" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonY" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonZ" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonDesistir" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonW" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="buttonResponder" min="-2" pref="34" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="jTextField1" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="buttonA" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonB" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonC" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonD" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonE" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonF" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonG" min="-2" pref="34" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="buttonH" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonI" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonJ" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonK" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonL" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonM" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonN" min="-2" pref="34" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="buttonO" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonQ" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonR" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonU" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonS" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonT" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonP" min="-2" pref="34" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="buttonV" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonX" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonY" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonZ" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonDesistir" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonW" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="buttonResponder" min="-2" pref="34" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Component id="labelVez" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="labelVez" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -624,6 +630,13 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="ELE"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelImgForca">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagem/erro0.jpg"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>

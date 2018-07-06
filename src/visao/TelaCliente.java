@@ -1,10 +1,12 @@
 package visao;
 
 import cliente.Cliente;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.net.URL;
+import javax.swing.ImageIcon;
 import modelo.Mensagem;
 
 public class TelaCliente extends javax.swing.JFrame {
@@ -19,19 +21,198 @@ public class TelaCliente extends javax.swing.JFrame {
         m = new Mensagem();
         m = controle.receberMensagem();
         if (controle.getId().equalsIgnoreCase("0")) {
+            habilitado = true;
             initComponents();
             labelVez.setText("É a sua Vez");
-            habilitado = true;
             labelPontosPlayer1.setText(m.getP1());
             labelPontosPlayer2.setText(m.getP2());
         } else {
+            habilitado = false;
             initComponents();
             labelVez.setText("Aguarde...");
             labelPontosPlayer1.setText(m.getP2());
             labelPontosPlayer2.setText(m.getP1());
+            System.out.println("Irá receber primeira jogada...");
+            m = controle.receberMensagem();
+            System.out.println("Recebeu Segunda Jogada");
+            atualizarTela(m);
+            habilitado = true;
         }
         labelPalavraOculta.setText(m.getPo());
 
+    }
+
+    public void atualizarForca(int numErros) {
+        URL url;
+        switch (numErros) {
+            case 0:
+                url = getClass().getResource("../imagem/erro0.jpg");
+                break;
+            case 1:
+                url = getClass().getResource("../imagem/erro1.jpg");
+                break;
+            case 2:
+                url = getClass().getResource("../imagem/erro2.jpg");
+                break;
+            case 3:
+                url = getClass().getResource("../imagem/erro3.jpg");
+                break;
+            case 4:
+                url = getClass().getResource("../imagem/erro4.jpg");
+                break;
+            case 5:
+                url = getClass().getResource("../imagem/erro5.jpg");
+                break;
+            case 6:
+                url = getClass().getResource("../imagem/erro6.jpg");
+                break;
+            default:
+                url = getClass().getResource("../imagem/erro0.jpg");
+
+        }
+        Image icone = Toolkit.getDefaultToolkit().getImage(url);
+        jLabelImgForca.setIcon(new ImageIcon(icone));
+    }
+
+    public void atualizarTela(Mensagem m) throws IOException {
+        atualizarForca(Integer.parseInt(m.getNe()));
+        if (controle.getId().equalsIgnoreCase("0")) {
+            labelPontosPlayer1.setText(m.getP1());
+            labelPontosPlayer2.setText(m.getP2());
+        } else {
+            labelPontosPlayer1.setText(m.getP2());
+            labelPontosPlayer2.setText(m.getP1());
+        }
+        labelPalavraOculta.setText(m.getPo());
+        desativarBotao(m.getLetra());
+    }
+
+    public void reinicarTela() {
+        buttonA.setEnabled(true);
+        buttonB.setEnabled(true);
+        buttonC.setEnabled(true);
+        buttonD.setEnabled(true);
+        buttonE.setEnabled(true);
+        buttonF.setEnabled(true);
+        buttonG.setEnabled(true);
+        buttonH.setEnabled(true);
+        buttonA.setEnabled(true);
+        buttonJ.setEnabled(true);
+        buttonK.setEnabled(true);
+        buttonL.setEnabled(true);
+        buttonM.setEnabled(true);
+        buttonN.setEnabled(true);
+        buttonO.setEnabled(true);
+        buttonP.setEnabled(true);
+        buttonQ.setEnabled(true);
+        buttonR.setEnabled(true);
+        buttonS.setEnabled(true);
+        buttonT.setEnabled(true);
+        buttonU.setEnabled(true);
+        buttonV.setEnabled(true);
+        buttonX.setEnabled(true);
+        buttonW.setEnabled(true);
+        buttonY.setEnabled(true);
+        buttonZ.setEnabled(true);
+
+    }
+
+    public void desativarBotao(String letra) {
+        switch (letra) {
+            case "a":
+                buttonA.setEnabled(false);
+                break;
+            case "b":
+                buttonB.setEnabled(false);
+                break;
+            case "c":
+                buttonC.setEnabled(false);
+                break;
+            case "d":
+                buttonD.setEnabled(false);
+                break;
+            case "e":
+                buttonE.setEnabled(false);
+                break;
+            case "f":
+                buttonF.setEnabled(false);
+                break;
+            case "g":
+                buttonG.setEnabled(false);
+                break;
+            case "h":
+                buttonH.setEnabled(false);
+                break;
+            case "i":
+                buttonI.setEnabled(false);
+                break;
+            case "j":
+                buttonJ.setEnabled(false);
+                break;
+            case "k":
+                buttonK.setEnabled(false);
+                break;
+            case "l":
+                buttonL.setEnabled(false);
+                break;
+            case "m":
+                buttonM.setEnabled(false);
+                break;
+            case "n":
+                buttonN.setEnabled(false);
+                break;
+            case "o":
+                buttonO.setEnabled(false);
+                break;
+            case "p":
+                buttonP.setEnabled(false);
+                break;
+            case "q":
+                buttonQ.setEnabled(false);
+                break;
+            case "r":
+                buttonR.setEnabled(false);
+                break;
+            case "s":
+                buttonS.setEnabled(false);
+                break;
+            case "t":
+                buttonT.setEnabled(false);
+                break;
+            case "u":
+                buttonU.setEnabled(false);
+                break;
+            case "v":
+                buttonV.setEnabled(false);
+                break;
+            case "x":
+                buttonX.setEnabled(false);
+                break;
+            case "w":
+                buttonW.setEnabled(false);
+                break;
+            case "y":
+                buttonY.setEnabled(false);
+                break;
+            case "z":
+                buttonZ.setEnabled(false);
+                break;
+
+        }
+    }
+
+    public void realizarJogada(String letra) throws IOException {
+        if (habilitado) {
+            Mensagem m;
+            controle.enviarMensagem(letra);
+            desativarBotao(letra);
+            m = controle.receberMensagem();
+            atualizarTela(m);
+            habilitado = false;
+            m = controle.receberMensagem();
+            atualizarTela(m);
+            habilitado = true;
+        }
     }
 
     /**
@@ -80,6 +261,7 @@ public class TelaCliente extends javax.swing.JFrame {
         labelVez = new java.awt.Label();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabelImgForca = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -334,6 +516,8 @@ public class TelaCliente extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("ELE");
 
+        jLabelImgForca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/erro0.jpg"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -414,13 +598,12 @@ public class TelaCliente extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonDesistir, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelImgForca)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(10, 10, 10)))
-                        .addGap(19, 19, 19)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelPontosPlayer2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelPontosPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -428,58 +611,63 @@ public class TelaCliente extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelPontosPlayer2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelPontosPlayer1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(labelPalavraOculta, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelImgForca)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelPontosPlayer2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(labelPontosPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                        .addComponent(labelPalavraOculta, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonA, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonB, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonC, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonD, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonE, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonF, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonG, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonH, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonI, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonJ, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonK, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonL, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonM, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonN, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonO, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonQ, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonR, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonU, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonS, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonT, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonP, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonV, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonX, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonY, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonZ, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonDesistir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonW, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonResponder, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(labelVez, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(buttonA, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonB, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonC, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonD, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonE, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonF, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonG, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(buttonH, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonI, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonJ, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonK, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonL, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonM, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonN, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(buttonO, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonQ, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonR, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonU, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonS, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonT, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonP, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(buttonV, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonX, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonY, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonZ, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonDesistir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonW, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonResponder, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(labelVez, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -499,541 +687,213 @@ public class TelaCliente extends javax.swing.JFrame {
 
 
     private void buttonAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("a");
-                buttonA.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-            } catch (IOException ex) {
-                System.out.println("ERROOOOOOO");
-            }
+        try {
+            realizarJogada("a");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
-
     }//GEN-LAST:event_buttonAActionPerformed
 
     private void buttonBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("b");
-                buttonB.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("b");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonBActionPerformed
 
     private void buttonCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("c");
-                buttonC.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("c");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonCActionPerformed
 
     private void buttonDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("d");
-                buttonD.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("d");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonDActionPerformed
 
     private void buttonEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("e");
-                buttonE.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("e");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonEActionPerformed
 
     private void buttonFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("f");
-                buttonF.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("f");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonFActionPerformed
 
     private void buttonGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("g");
-                buttonG.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("g");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonGActionPerformed
 
     private void buttonHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHActionPerformed
-
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("h");
-                buttonH.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("h");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonHActionPerformed
 
     private void buttonIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("i");
-                buttonI.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("i");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonIActionPerformed
 
     private void buttonJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonJActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("j");
-                buttonJ.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("j");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonJActionPerformed
 
     private void buttonKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("k");
-                buttonK.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("k");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonKActionPerformed
 
     private void buttonLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("l");
-                buttonL.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("l");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonLActionPerformed
 
     private void buttonMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("m");
-                buttonM.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("m");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonMActionPerformed
 
     private void buttonNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("n");
-                buttonN.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("n");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonNActionPerformed
 
     private void buttonOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("o");
-                buttonO.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("o");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonOActionPerformed
 
     private void buttonPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("p");
-                buttonP.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                this.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("p");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonPActionPerformed
 
     private void buttonQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonQActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("q");
-                buttonQ.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("q");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonQActionPerformed
 
     private void buttonRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("r");
-                buttonR.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("r");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonRActionPerformed
 
     private void buttonSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("s");
-                buttonS.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("s");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonSActionPerformed
 
     private void buttonTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("t");
-                buttonT.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("t");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonTActionPerformed
 
     private void buttonUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("u");
-                buttonU.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("u");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonUActionPerformed
 
     private void buttonVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("v");
-                buttonV.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("v");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonVActionPerformed
 
     private void buttonWActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonWActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("w");
-                buttonW.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("w");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonWActionPerformed
 
     private void buttonXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonXActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("x");
-                buttonX.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("x");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
+
     }//GEN-LAST:event_buttonXActionPerformed
 
     private void buttonYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonYActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("y");
-                buttonY.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("y");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonYActionPerformed
 
     private void buttonZActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonZActionPerformed
-        if (habilitado) {
-            try {
-                controle.enviarMensagem("z");
-                buttonZ.setEnabled(false);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-                m = controle.receberMensagem();
-                atualizarComponentes(m);
-            } catch (IOException ex) {
-                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            realizarJogada("z");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
         }
     }//GEN-LAST:event_buttonZActionPerformed
-
-    public void atualizarPalavra(String text) {
-        labelPalavraOculta.setText(text);
-    }
-
-    public void desativarTela() {
-    }
-
-    public void ativarTela() {
-
-    }
-
-    public void reinicarTela() {
-        buttonA.setEnabled(true);
-        buttonB.setEnabled(true);
-        buttonC.setEnabled(true);
-        buttonD.setEnabled(true);
-        buttonE.setEnabled(true);
-        buttonF.setEnabled(true);
-        buttonG.setEnabled(true);
-        buttonH.setEnabled(true);
-        buttonA.setEnabled(true);
-        buttonJ.setEnabled(true);
-        buttonK.setEnabled(true);
-        buttonL.setEnabled(true);
-        buttonM.setEnabled(true);
-        buttonN.setEnabled(true);
-        buttonO.setEnabled(true);
-        buttonP.setEnabled(true);
-        buttonQ.setEnabled(true);
-        buttonR.setEnabled(true);
-        buttonS.setEnabled(true);
-        buttonT.setEnabled(true);
-        buttonU.setEnabled(true);
-        buttonV.setEnabled(true);
-        buttonX.setEnabled(true);
-        buttonW.setEnabled(true);
-        buttonY.setEnabled(true);
-        buttonZ.setEnabled(true);
-
-    }
-
-    public void atualizarPontosJogador(String text) {
-        labelPontosPlayer1.setText(text);
-    }
-
-    public void atualizarPontosAdversario(String text) {
-        labelPontosPlayer2.setText(text);
-    }
-
-    public void atualizarStatusVez(String text) {
-        labelVez.setText(text);
-    }
-
-    public void desativarBotao(String letra) {
-        switch (letra) {
-            case "a":
-                buttonA.setEnabled(false);
-                break;
-            case "b":
-                buttonB.setEnabled(false);
-                break;
-            case "c":
-                buttonC.setEnabled(false);
-                break;
-            case "d":
-                buttonD.setEnabled(false);
-                break;
-            case "e":
-                buttonE.setEnabled(false);
-                break;
-            case "f":
-                buttonF.setEnabled(false);
-                break;
-            case "g":
-                buttonG.setEnabled(false);
-                break;
-            case "h":
-                buttonH.setEnabled(false);
-                break;
-            case "i":
-                buttonI.setEnabled(false);
-                break;
-            case "j":
-                buttonJ.setEnabled(false);
-                break;
-            case "k":
-                buttonK.setEnabled(false);
-                break;
-            case "l":
-                buttonL.setEnabled(false);
-                break;
-            case "m":
-                buttonM.setEnabled(false);
-                break;
-            case "n":
-                buttonN.setEnabled(false);
-                break;
-            case "o":
-                buttonO.setEnabled(false);
-                break;
-            case "p":
-                buttonP.setEnabled(false);
-                break;
-            case "q":
-                buttonQ.setEnabled(false);
-                break;
-            case "r":
-                buttonR.setEnabled(false);
-                break;
-            case "s":
-                buttonS.setEnabled(false);
-                break;
-            case "t":
-                buttonT.setEnabled(false);
-                break;
-            case "u":
-                buttonU.setEnabled(false);
-                break;
-            case "v":
-                buttonV.setEnabled(false);
-                break;
-            case "x":
-                buttonX.setEnabled(false);
-                break;
-            case "w":
-                buttonW.setEnabled(false);
-                break;
-            case "y":
-                buttonY.setEnabled(false);
-                break;
-            case "z":
-                buttonZ.setEnabled(false);
-                break;
-
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button buttonA;
@@ -1066,6 +926,7 @@ public class TelaCliente extends javax.swing.JFrame {
     private java.awt.Button buttonZ;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabelImgForca;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JTextField jTextField1;
@@ -1075,22 +936,4 @@ public class TelaCliente extends javax.swing.JFrame {
     private java.awt.Label labelVez;
     // End of variables declaration//GEN-END:variables
 
-    private void atualizarComponentes(Mensagem m) {
-        labelPalavraOculta.setText(m.getPo());
-        if (controle.getId().equalsIgnoreCase("0")) {
-            labelPontosPlayer1.setText(m.getP1());
-            labelPontosPlayer2.setText(m.getP2());
-        } else {
-            labelPontosPlayer1.setText(m.getP2());
-            labelPontosPlayer2.setText(m.getP1());
-        }
-        if (controle.getId().equalsIgnoreCase(m.getId())) { // Jogador da vez
-            labelVez.setText("É a sua Vez");
-        } else {
-            labelVez.setText("Aguarde");
-        }
-        /*tratar gr: Ganhador da rodada gp: Ganhador da partida*/
-
-        desativarBotao(m.getLetra());
-    }
 }
