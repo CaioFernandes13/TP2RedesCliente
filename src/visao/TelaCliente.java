@@ -20,27 +20,7 @@ public class TelaCliente extends javax.swing.JFrame {
 
     public TelaCliente(Cliente controle) throws IOException {
         this.controle = controle;
-
-        m = new Mensagem();
-        m = controle.receberMensagem();
         initComponents();
-        if (controle.getId().equalsIgnoreCase("0")) {
-            this.setTitle("Primeiro Jogador");
-            JOptionPane.showMessageDialog(null, "Você é o Primeiro jogador!");
-            labelVez.setText("É a sua Vez");
-            labelPontosPlayer1.setText(m.getP1());
-            labelPontosPlayer2.setText(m.getP2());
-            labelPalavraOculta.setText(m.getPo());
-        } else {
-            this.setTitle("Segundo Jogador");
-            labelVez.setText("Aguarde...");
-            labelPalavraOculta.setText(m.getPo());
-            labelPontosPlayer1.setText(m.getP2());
-            labelPontosPlayer2.setText(m.getP1());
-            JOptionPane.showMessageDialog(null, "Você é o SEGUNDO jogador!\n Aguardando a primeira JOGADA!");
-            m = controle.receberMensagem();
-            atualizarTela(m);
-        }
     }
 
     private void atualizarForca(int numErros) {
@@ -78,11 +58,9 @@ public class TelaCliente extends javax.swing.JFrame {
 
     private void telaVencedor() {
         labelVez.setText("FIM DE JOGO");
-        labelPalavraOculta.setText("PARABÉNS, ganhou!!!");
-        labelPalavraOculta.paintAll(labelPalavraOculta.getGraphics());
+        labelPalavraOculta.setText("parabsn, GANHOU!!!");
         labelPalavraOculta.setBackground(Color.green);
         labelPalavraOculta.setForeground(Color.white);
-        labelVez.paintAll(labelVez.getGraphics());
         finalizarTela();
         ativarTela();
     }
@@ -90,14 +68,11 @@ public class TelaCliente extends javax.swing.JFrame {
     private void telaPerdedor() {
         labelVez.setText("FIM DE JOGO");
         labelPalavraOculta.setText("OPS! você PERDEU !!!");
-        labelPalavraOculta.paintAll(labelPalavraOculta.getGraphics());
         labelPalavraOculta.setBackground(Color.red);
         labelPalavraOculta.setForeground(Color.white);
-        labelVez.paintAll(labelVez.getGraphics());
         finalizarTela();
         ativarTela();
     }
-    
 
     private void controlarVencedor(Mensagem m) {
         if (m.getFp().equalsIgnoreCase("1")) {
@@ -133,17 +108,16 @@ public class TelaCliente extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Você GANHOU a rodada.");
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Ops! Parece alguém foi enforcado...");
+                JOptionPane.showMessageDialog(null, "Ops! Parece que alguém foi enforcado...");
             }
             reinicarTela();
         }
     }
 
     private void atualizarTela(Mensagem m) throws IOException {
-        Button b = desativarBotao(m.getLetra());
-        b.paintAll(b.getGraphics());
+        desativarBotao(m.getLetra());
         if (controle.getId().equalsIgnoreCase(m.getId())) {
-            labelVez.setText("Sua Fez!");
+            labelVez.setText("Sua vez!");
         } else {
             labelVez.setText("Aguarde...");
         }
@@ -157,6 +131,24 @@ public class TelaCliente extends javax.swing.JFrame {
         labelPalavraOculta.setText(m.getPo());
         atualizarForca(Integer.parseInt(m.getNe()));
         controlarVencedor(m);
+    }
+
+    void primeiroJogador(Mensagem m) {
+        JOptionPane.showMessageDialog(null, "Você é o Primeiro jogador!");
+        labelVez.setText("Sua vez!");
+        labelPontosPlayer1.setText(m.getP1());
+        labelPontosPlayer2.setText(m.getP2());
+        labelPalavraOculta.setText(m.getPo());
+    }
+
+    void segundoJogador(Mensagem m) throws IOException {
+        labelVez.setText("Aguarde...");
+        labelPalavraOculta.setText(m.getPo());
+        labelPontosPlayer1.setText(m.getP2());
+        labelPontosPlayer2.setText(m.getP1());
+        JOptionPane.showMessageDialog(null, "Você é o SEGUNDO jogador!\n Aguardando a primeira JOGADA!");
+        m = controle.receberMensagem();
+        atualizarTela(m);
     }
 
     private void finalizarTela() {
@@ -319,8 +311,8 @@ public class TelaCliente extends javax.swing.JFrame {
         atualizarTela(m);
         desativarTela();
         m = controle.receberMensagem();
-        atualizarTela(m);
         ativarTela();
+        atualizarTela(m);
     }
 
     /**
@@ -375,6 +367,7 @@ public class TelaCliente extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
 
+        buttonH.setBackground(java.awt.Color.white);
         buttonH.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonH.setLabel("H");
         buttonH.addActionListener(new java.awt.event.ActionListener() {
@@ -383,6 +376,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonO.setBackground(java.awt.Color.white);
         buttonO.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonO.setLabel("O");
         buttonO.addActionListener(new java.awt.event.ActionListener() {
@@ -391,6 +385,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonB.setBackground(java.awt.Color.white);
         buttonB.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonB.setLabel("B");
         buttonB.addActionListener(new java.awt.event.ActionListener() {
@@ -399,6 +394,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonA.setBackground(java.awt.Color.white);
         buttonA.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonA.setLabel("A");
         buttonA.addActionListener(new java.awt.event.ActionListener() {
@@ -407,6 +403,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonI.setBackground(java.awt.Color.white);
         buttonI.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonI.setLabel("I");
         buttonI.addActionListener(new java.awt.event.ActionListener() {
@@ -415,6 +412,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonC.setBackground(java.awt.Color.white);
         buttonC.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonC.setLabel("C");
         buttonC.addActionListener(new java.awt.event.ActionListener() {
@@ -423,6 +421,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonJ.setBackground(java.awt.Color.white);
         buttonJ.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonJ.setLabel("J");
         buttonJ.addActionListener(new java.awt.event.ActionListener() {
@@ -431,6 +430,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonD.setBackground(java.awt.Color.white);
         buttonD.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonD.setLabel("D");
         buttonD.addActionListener(new java.awt.event.ActionListener() {
@@ -439,6 +439,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonK.setBackground(java.awt.Color.white);
         buttonK.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonK.setLabel("K");
         buttonK.addActionListener(new java.awt.event.ActionListener() {
@@ -447,6 +448,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonE.setBackground(java.awt.Color.white);
         buttonE.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonE.setLabel("E");
         buttonE.setName(""); // NOI18N
@@ -456,6 +458,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonF.setBackground(java.awt.Color.white);
         buttonF.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonF.setLabel("F");
         buttonF.addActionListener(new java.awt.event.ActionListener() {
@@ -464,6 +467,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonG.setBackground(java.awt.Color.white);
         buttonG.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonG.setLabel("G");
         buttonG.addActionListener(new java.awt.event.ActionListener() {
@@ -472,6 +476,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonQ.setBackground(java.awt.Color.white);
         buttonQ.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonQ.setLabel("Q");
         buttonQ.addActionListener(new java.awt.event.ActionListener() {
@@ -480,6 +485,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonR.setBackground(java.awt.Color.white);
         buttonR.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonR.setLabel("R");
         buttonR.addActionListener(new java.awt.event.ActionListener() {
@@ -488,6 +494,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonL.setBackground(java.awt.Color.white);
         buttonL.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonL.setLabel("L");
         buttonL.addActionListener(new java.awt.event.ActionListener() {
@@ -496,6 +503,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonP.setBackground(java.awt.Color.white);
         buttonP.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonP.setLabel("P");
         buttonP.addActionListener(new java.awt.event.ActionListener() {
@@ -504,6 +512,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonM.setBackground(java.awt.Color.white);
         buttonM.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonM.setLabel("M");
         buttonM.addActionListener(new java.awt.event.ActionListener() {
@@ -512,6 +521,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonN.setBackground(java.awt.Color.white);
         buttonN.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonN.setLabel("N");
         buttonN.addActionListener(new java.awt.event.ActionListener() {
@@ -520,6 +530,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonU.setBackground(java.awt.Color.white);
         buttonU.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonU.setLabel("U");
         buttonU.addActionListener(new java.awt.event.ActionListener() {
@@ -528,6 +539,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonT.setBackground(java.awt.Color.white);
         buttonT.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonT.setLabel("T");
         buttonT.addActionListener(new java.awt.event.ActionListener() {
@@ -536,6 +548,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonS.setBackground(java.awt.Color.white);
         buttonS.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonS.setLabel("S");
         buttonS.addActionListener(new java.awt.event.ActionListener() {
@@ -544,6 +557,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonV.setBackground(java.awt.Color.white);
         buttonV.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonV.setLabel("V");
         buttonV.addActionListener(new java.awt.event.ActionListener() {
@@ -552,6 +566,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonW.setBackground(java.awt.Color.white);
         buttonW.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonW.setLabel("W");
         buttonW.addActionListener(new java.awt.event.ActionListener() {
@@ -560,6 +575,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonX.setBackground(java.awt.Color.white);
         buttonX.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonX.setLabel("X");
         buttonX.addActionListener(new java.awt.event.ActionListener() {
@@ -568,6 +584,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonY.setBackground(java.awt.Color.white);
         buttonY.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonY.setLabel("Y");
         buttonY.addActionListener(new java.awt.event.ActionListener() {
@@ -576,6 +593,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        buttonZ.setBackground(java.awt.Color.white);
         buttonZ.setFont(new java.awt.Font("Engravers MT", 1, 24)); // NOI18N
         buttonZ.setLabel("Z");
         buttonZ.addActionListener(new java.awt.event.ActionListener() {
@@ -610,7 +628,7 @@ public class TelaCliente extends javax.swing.JFrame {
 
         labelPalavraOculta.setAlignment(java.awt.Label.CENTER);
         labelPalavraOculta.setBackground(new java.awt.Color(255, 255, 255));
-        labelPalavraOculta.setFont(new java.awt.Font("Source Code Pro Light", 1, 48)); // NOI18N
+        labelPalavraOculta.setFont(new java.awt.Font("Verdana", 1, 48)); // NOI18N
         labelPalavraOculta.setText("JOGO DA FORCA");
 
         labelPontosPlayer1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
@@ -623,7 +641,7 @@ public class TelaCliente extends javax.swing.JFrame {
 
         labelVez.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         labelVez.setForeground(new java.awt.Color(255, 255, 255));
-        labelVez.setText("É a sua fez.");
+        labelVez.setText("Sua vez!");
 
         jLabel1.setFont(new java.awt.Font("Footlight MT Light", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -657,9 +675,9 @@ public class TelaCliente extends javax.swing.JFrame {
                                 .addComponent(buttonA, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonB, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(labelVez, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(labelVez, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -741,7 +759,7 @@ public class TelaCliente extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(labelPontosPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
                         .addComponent(labelPalavraOculta, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

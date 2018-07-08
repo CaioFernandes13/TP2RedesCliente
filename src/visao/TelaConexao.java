@@ -3,6 +3,7 @@ package visao;
 import cliente.Cliente;
 import java.io.IOException;
 import javax.swing.JOptionPane;
+import modelo.Mensagem;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -151,10 +152,21 @@ public class TelaConexao extends javax.swing.JFrame {
             this.setVisible(false);
             TelaCliente tc = new TelaCliente(cliente);
             tc.setVisible(true);
+
+            Mensagem m;
+            m = tc.controle.receberMensagem();
+            if (tc.controle.getId().equalsIgnoreCase("0")) {
+                tc.setTitle("Primeiro Jogador");
+                tc.primeiroJogador(m);
+
+            } else {
+                tc.setTitle("Segundo Jogador");
+                tc.segundoJogador(m);
+            }
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
-         
+
     }//GEN-LAST:event_btnConexaoActionPerformed
 
     private void tfEndConexaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfEndConexaoActionPerformed

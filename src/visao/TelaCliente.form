@@ -72,9 +72,9 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="buttonB" min="-2" pref="91" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                                  <Component id="labelVez" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Component id="labelVez" min="-2" pref="182" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -179,7 +179,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="labelPontosPlayer1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel1" max="32767" attributes="0"/>
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="104" max="32767" attributes="0"/>
                           <Component id="labelPalavraOculta" min="-2" pref="103" max="-2" attributes="0"/>
@@ -240,6 +240,9 @@
       <SubComponents>
         <Component class="java.awt.Button" name="buttonH">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -251,6 +254,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonO">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -262,6 +268,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonB">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -273,6 +282,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonA">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -284,6 +296,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonI">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -295,6 +310,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonC">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -306,6 +324,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonJ">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -317,6 +338,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonD">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -328,6 +352,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonK">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -339,6 +366,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonE">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -351,6 +381,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonF">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -362,6 +395,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonG">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -373,6 +409,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonQ">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -384,6 +423,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonR">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -395,6 +437,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonL">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -406,6 +451,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonP">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -417,6 +465,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonM">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -428,6 +479,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonN">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -439,6 +493,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonU">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -450,6 +507,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonT">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -461,6 +521,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonS">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -472,6 +535,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonV">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -483,6 +549,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonW">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -494,6 +563,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonX">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -505,6 +577,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonY">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -516,6 +591,9 @@
         </Component>
         <Component class="java.awt.Button" name="buttonZ">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Engravers MT" size="24" style="1"/>
             </Property>
@@ -577,7 +655,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Source Code Pro Light" size="48" style="1"/>
+              <Font name="Verdana" size="48" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="JOGO DA FORCA"/>
           </Properties>
@@ -612,7 +690,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#xc9; a sua fez."/>
+            <Property name="text" type="java.lang.String" value="Sua vez!"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
