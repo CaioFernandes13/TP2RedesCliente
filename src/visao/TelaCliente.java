@@ -1,48 +1,49 @@
 package visao;
 
 import cliente.Cliente;
+import java.awt.Button;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import modelo.Mensagem;
 
 public class TelaCliente extends javax.swing.JFrame {
 
     Socket cliente;
     Cliente controle;
-    boolean habilitado = true;
     Mensagem m;
 
     public TelaCliente(Cliente controle) throws IOException {
         this.controle = controle;
+
         m = new Mensagem();
         m = controle.receberMensagem();
+        initComponents();
         if (controle.getId().equalsIgnoreCase("0")) {
-            habilitado = true;
-            initComponents();
+            this.setTitle("Primeiro Jogador");
+            JOptionPane.showMessageDialog(null, "Você é o Primeiro jogador!");
             labelVez.setText("É a sua Vez");
             labelPontosPlayer1.setText(m.getP1());
             labelPontosPlayer2.setText(m.getP2());
+            labelPalavraOculta.setText(m.getPo());
         } else {
-            habilitado = false;
-            initComponents();
+            this.setTitle("Segundo Jogador");
             labelVez.setText("Aguarde...");
+            labelPalavraOculta.setText(m.getPo());
             labelPontosPlayer1.setText(m.getP2());
             labelPontosPlayer2.setText(m.getP1());
-            System.out.println("Irá receber primeira jogada...");
+            JOptionPane.showMessageDialog(null, "Você é o SEGUNDO jogador!\n Aguardando a primeira JOGADA!");
             m = controle.receberMensagem();
-            System.out.println("Recebeu Segunda Jogada");
             atualizarTela(m);
-            habilitado = true;
         }
-        labelPalavraOculta.setText(m.getPo());
-
     }
 
-    public void atualizarForca(int numErros) {
+    private void atualizarForca(int numErros) {
         URL url;
         switch (numErros) {
             case 0:
@@ -72,10 +73,80 @@ public class TelaCliente extends javax.swing.JFrame {
         }
         Image icone = Toolkit.getDefaultToolkit().getImage(url);
         jLabelImgForca.setIcon(new ImageIcon(icone));
+        jLabelImgForca.paintAll(jLabelImgForca.getGraphics());
     }
 
-    public void atualizarTela(Mensagem m) throws IOException {
-        atualizarForca(Integer.parseInt(m.getNe()));
+    private void telaVencedor() {
+        labelVez.setText("FIM DE JOGO");
+        labelPalavraOculta.setText("PARABÉNS, ganhou!!!");
+        labelPalavraOculta.paintAll(labelPalavraOculta.getGraphics());
+        labelPalavraOculta.setBackground(Color.green);
+        labelPalavraOculta.setForeground(Color.white);
+        labelVez.paintAll(labelVez.getGraphics());
+        finalizarTela();
+        ativarTela();
+    }
+
+    private void telaPerdedor() {
+        labelVez.setText("FIM DE JOGO");
+        labelPalavraOculta.setText("OPS! você PERDEU !!!");
+        labelPalavraOculta.paintAll(labelPalavraOculta.getGraphics());
+        labelPalavraOculta.setBackground(Color.red);
+        labelPalavraOculta.setForeground(Color.white);
+        labelVez.paintAll(labelVez.getGraphics());
+        finalizarTela();
+        ativarTela();
+    }
+    
+
+    private void controlarVencedor(Mensagem m) {
+        if (m.getFp().equalsIgnoreCase("1")) {
+            if (m.getGp().equalsIgnoreCase("1")) {
+                if (controle.getId().equalsIgnoreCase("0")) {
+                    JOptionPane.showMessageDialog(null, "Parabéns, você GANHOU o jogo.");
+                    telaVencedor();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ops! Você PERDEU o jogo.");
+                    telaPerdedor();
+                }
+            } else {
+                if (controle.getId().equalsIgnoreCase("0")) {
+                    JOptionPane.showMessageDialog(null, "Ops! você PERDEU o jogo.");
+                    telaPerdedor();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Parabéns, você GANHOU o jogo.");
+                    telaVencedor();
+                }
+            }
+
+        } else if (m.getFr().equalsIgnoreCase("1")) {
+            if (m.getGr().equalsIgnoreCase("1")) {
+                if (controle.getId().equalsIgnoreCase("0")) {
+                    JOptionPane.showMessageDialog(null, "Você GANHOU a rodada.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ops! seu adversário ganhou a rodada.");
+                }
+            } else if (m.getGr().equalsIgnoreCase("2")) {
+                if (controle.getId().equalsIgnoreCase("0")) {
+                    JOptionPane.showMessageDialog(null, "Ops! seu adversário ganhou a rodada.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Você GANHOU a rodada.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Ops! Parece alguém foi enforcado...");
+            }
+            reinicarTela();
+        }
+    }
+
+    private void atualizarTela(Mensagem m) throws IOException {
+        Button b = desativarBotao(m.getLetra());
+        b.paintAll(b.getGraphics());
+        if (controle.getId().equalsIgnoreCase(m.getId())) {
+            labelVez.setText("Sua Fez!");
+        } else {
+            labelVez.setText("Aguarde...");
+        }
         if (controle.getId().equalsIgnoreCase("0")) {
             labelPontosPlayer1.setText(m.getP1());
             labelPontosPlayer2.setText(m.getP2());
@@ -84,10 +155,42 @@ public class TelaCliente extends javax.swing.JFrame {
             labelPontosPlayer2.setText(m.getP1());
         }
         labelPalavraOculta.setText(m.getPo());
-        desativarBotao(m.getLetra());
+        atualizarForca(Integer.parseInt(m.getNe()));
+        controlarVencedor(m);
     }
 
-    public void reinicarTela() {
+    private void finalizarTela() {
+        buttonA.setEnabled(false);
+        buttonB.setEnabled(false);
+        buttonC.setEnabled(false);
+        buttonD.setEnabled(false);
+        buttonE.setEnabled(false);
+        buttonF.setEnabled(false);
+        buttonG.setEnabled(false);
+        buttonH.setEnabled(false);
+        buttonI.setEnabled(false);
+        buttonJ.setEnabled(false);
+        buttonK.setEnabled(false);
+        buttonL.setEnabled(false);
+        buttonM.setEnabled(false);
+        buttonN.setEnabled(false);
+        buttonO.setEnabled(false);
+        buttonP.setEnabled(false);
+        buttonQ.setEnabled(false);
+        buttonR.setEnabled(false);
+        buttonS.setEnabled(false);
+        buttonT.setEnabled(false);
+        buttonU.setEnabled(false);
+        buttonV.setEnabled(false);
+        buttonX.setEnabled(false);
+        buttonW.setEnabled(false);
+        buttonY.setEnabled(false);
+        buttonZ.setEnabled(false);
+        buttonDesistir.setEnabled(false);
+        buttonResponder.setEnabled(false);
+    }
+
+    private void reinicarTela() {
         buttonA.setEnabled(true);
         buttonB.setEnabled(true);
         buttonC.setEnabled(true);
@@ -96,7 +199,7 @@ public class TelaCliente extends javax.swing.JFrame {
         buttonF.setEnabled(true);
         buttonG.setEnabled(true);
         buttonH.setEnabled(true);
-        buttonA.setEnabled(true);
+        buttonI.setEnabled(true);
         buttonJ.setEnabled(true);
         buttonK.setEnabled(true);
         buttonL.setEnabled(true);
@@ -114,105 +217,110 @@ public class TelaCliente extends javax.swing.JFrame {
         buttonW.setEnabled(true);
         buttonY.setEnabled(true);
         buttonZ.setEnabled(true);
-
     }
 
-    public void desativarBotao(String letra) {
+    private void desativarTela() {
+        this.setEnabled(false);
+    }
+
+    private void ativarTela() {
+        this.setEnabled(true);
+    }
+
+    private Button desativarBotao(String letra) {
         switch (letra) {
             case "a":
                 buttonA.setEnabled(false);
-                break;
+                return buttonA;
             case "b":
                 buttonB.setEnabled(false);
-                break;
+                return buttonB;
             case "c":
                 buttonC.setEnabled(false);
-                break;
+                return buttonC;
             case "d":
                 buttonD.setEnabled(false);
-                break;
+                return buttonD;
             case "e":
                 buttonE.setEnabled(false);
-                break;
+                return buttonE;
             case "f":
                 buttonF.setEnabled(false);
-                break;
+                return buttonF;
             case "g":
                 buttonG.setEnabled(false);
-                break;
+                return buttonG;
             case "h":
                 buttonH.setEnabled(false);
-                break;
+                return buttonH;
             case "i":
                 buttonI.setEnabled(false);
-                break;
+                return buttonI;
             case "j":
                 buttonJ.setEnabled(false);
-                break;
+                return buttonJ;
             case "k":
                 buttonK.setEnabled(false);
-                break;
+                return buttonK;
             case "l":
                 buttonL.setEnabled(false);
-                break;
+                return buttonL;
             case "m":
                 buttonM.setEnabled(false);
-                break;
+                return buttonM;
             case "n":
                 buttonN.setEnabled(false);
-                break;
+                return buttonN;
             case "o":
                 buttonO.setEnabled(false);
-                break;
+                return buttonO;
             case "p":
                 buttonP.setEnabled(false);
-                break;
+                return buttonP;
             case "q":
                 buttonQ.setEnabled(false);
-                break;
+                return buttonQ;
             case "r":
                 buttonR.setEnabled(false);
-                break;
+                return buttonR;
             case "s":
                 buttonS.setEnabled(false);
-                break;
+                return buttonS;
             case "t":
                 buttonT.setEnabled(false);
-                break;
+                return buttonT;
             case "u":
                 buttonU.setEnabled(false);
-                break;
+                return buttonU;
             case "v":
                 buttonV.setEnabled(false);
-                break;
+                return buttonV;
             case "x":
                 buttonX.setEnabled(false);
-                break;
+                return buttonX;
             case "w":
                 buttonW.setEnabled(false);
-                break;
+                return buttonW;
             case "y":
                 buttonY.setEnabled(false);
-                break;
+                return buttonY;
             case "z":
                 buttonZ.setEnabled(false);
-                break;
+                return buttonZ;
 
         }
+        return buttonA;
     }
 
-    public void realizarJogada(String letra) throws IOException {
-        if (habilitado) {
-            Mensagem m;
-            controle.enviarMensagem(letra);
-            desativarBotao(letra);
-            m = controle.receberMensagem();
-            atualizarTela(m);
-            habilitado = false;
-            m = controle.receberMensagem();
-            atualizarTela(m);
-            habilitado = true;
-        }
+    private void realizarJogada(String letra) throws IOException {
+        Mensagem m;
+        controle.enviarMensagem(letra);
+        m = controle.receberMensagem();
+        atualizarTela(m);
+        desativarTela();
+        m = controle.receberMensagem();
+        atualizarTela(m);
+        ativarTela();
     }
 
     /**
@@ -254,7 +362,7 @@ public class TelaCliente extends javax.swing.JFrame {
         buttonZ = new java.awt.Button();
         buttonDesistir = new java.awt.Button();
         buttonResponder = new java.awt.Button();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldResponder = new javax.swing.JTextField();
         labelPalavraOculta = new java.awt.Label();
         labelPontosPlayer1 = new java.awt.Label();
         labelPontosPlayer2 = new java.awt.Label();
@@ -480,16 +588,25 @@ public class TelaCliente extends javax.swing.JFrame {
         buttonDesistir.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
         buttonDesistir.setForeground(new java.awt.Color(255, 255, 255));
         buttonDesistir.setLabel("Desistir");
+        buttonDesistir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDesistirActionPerformed(evt);
+            }
+        });
 
         buttonResponder.setBackground(new java.awt.Color(0, 102, 0));
         buttonResponder.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
         buttonResponder.setForeground(new java.awt.Color(255, 255, 255));
         buttonResponder.setLabel("Responder");
+        buttonResponder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonResponderActionPerformed(evt);
+            }
+        });
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setText("responder...");
-        jTextField1.setEnabled(false);
+        jTextFieldResponder.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTextFieldResponder.setForeground(new java.awt.Color(51, 51, 51));
+        jTextFieldResponder.setText("responder...");
 
         labelPalavraOculta.setAlignment(java.awt.Label.CENTER);
         labelPalavraOculta.setBackground(new java.awt.Color(255, 255, 255));
@@ -582,7 +699,7 @@ public class TelaCliente extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(buttonG, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(jTextField1)))))
+                                    .addComponent(jTextFieldResponder)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(buttonV, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -630,7 +747,7 @@ public class TelaCliente extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldResponder, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(buttonA, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -895,6 +1012,22 @@ public class TelaCliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonZActionPerformed
 
+    private void buttonResponderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonResponderActionPerformed
+        try {
+            realizarJogada(jTextFieldResponder.getText());
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
+        }
+    }//GEN-LAST:event_buttonResponderActionPerformed
+
+    private void buttonDesistirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDesistirActionPerformed
+        try {
+            realizarJogada("desistir");
+        } catch (IOException ex) {
+            System.out.println("Jogada não foi realizada");
+        }
+    }//GEN-LAST:event_buttonDesistirActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button buttonA;
     private java.awt.Button buttonB;
@@ -929,7 +1062,7 @@ public class TelaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelImgForca;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextFieldResponder;
     private java.awt.Label labelPalavraOculta;
     private java.awt.Label labelPontosPlayer1;
     private java.awt.Label labelPontosPlayer2;

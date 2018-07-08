@@ -31,6 +31,7 @@ public class Mensagem {
     
     foramto de mendagem dos jogadores pro servidor
      */
+    
     public void decodificarMensagem(String msg) {
         String[] entrada = new String[10];
         entrada   = msg.split(" ");
